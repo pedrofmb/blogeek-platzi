@@ -1,7 +1,7 @@
 class Post {
   constructor () {
     this.db = firebase.firestore()
-    const settings = { timestampsInSnapshots: true }
+    const settings = {  }
     this.db.settings(settings)
   }
 

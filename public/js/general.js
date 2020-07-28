@@ -2,7 +2,8 @@ $(() => {
   $('.tooltipped').tooltip({ delay: 50 })
   $('.modal').modal()
 
-  firebase.initializeApp(varConfig)
+  firebase.initializeApp(varConfig);
+  firebase.analytics();
 
   // Se registra el service worker
   navigator.serviceWorker
@@ -79,7 +80,10 @@ $(() => {
   post.consultarTodosPost()
 
   // Firebase observador del cambio de estado de auth
-  firebase.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged(user => 
+  {
+    console.log(user);
+
     if (user) {
       $('#btnInicioSesion').text('Salir')
       if (user.photoURL) {
@@ -94,9 +98,12 @@ $(() => {
   })
 
   // Evento boton inicio sesion
-  $('#btnInicioSesion').click(() => {
+  $('#btnInicioSesion').click(() => 
+  {
     const user = firebase.auth().currentUser
-    if (user) {
+
+    if (user) 
+    {
       $('#btnInicioSesion').text('Iniciar Sesión')
       return firebase
         .auth()

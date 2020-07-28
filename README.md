@@ -5,3 +5,10 @@ Proyecto de referencia para el curso en Platzi de Firebase para la Web.
 - Mira la versión final: https://blogeekplatzi.firebaseapp.com/
 
 @jggomezt
+
+***Reglas para que solo pued insertar o eliminar si el usuario esta logeado
+
+match /posts/{post}/{uid} {
+        allow update, delete: if request.auth.uid == uid
+                && request.resource.data.email == resource.data.email
+}

@@ -5,7 +5,7 @@ class Autenticacion {
         $('#avatar').attr('src', 'imagenes/usuario_auth.png')
         Materialize.toast(`Bienvenido ${result.user.displayName}`, 5000)
       } else {
-        firebase.auth().signOut()
+        firebase.auth().signOut();
         Materialize.toast(
           `Por favor realiza la verificación de la cuenta`,
           5000
@@ -23,11 +23,17 @@ class Autenticacion {
       .then(result => {
         result.user.updateProfile({
           displayName: nombres
-        })
+        }).
+        catch(err => {
+          console.log(err);
+          Materialize.toast(err.message, 4000);
+        });
 
         const configuracion = {
           url: 'https://blogeekplatzi-4836b.firebaseapp.com/'
         }
+
+        configuracion.url = "http://localhost:3000";
 
         result.user.sendEmailVerification(configuracion).catch(error => {
           console.error(error)
@@ -49,8 +55,9 @@ class Autenticacion {
       })
   }
 
-  authCuentaGoogle () {
-    const provider = new firebase.auth.GoogleAuthProvider()
+  authCuentaGoogle () 
+  {
+    const provider = new firebase.auth.GoogleAuthProvider();
 
     firebase.auth().signInWithPopup(provider).then(result => {
       $('#avatar').attr('src', result.user.photoURL)
